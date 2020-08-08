@@ -40,7 +40,7 @@
                      <div class="well">
                     <h5>Patient Search</h5>
                     
-                    <form action="#" method="post">
+                    <form action="search.php" method="post">
                     <div class="input-group">
                         <input name="search" type="text" class="form-control">
                         <span class="input-group-btn">

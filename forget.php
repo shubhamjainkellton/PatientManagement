@@ -21,7 +21,7 @@ if(ifItIsMethod('post')){
     if(isset($_POST['email'])){
       $email =  $_POST['email'];
       $length = 50;
-      $token = bin2hex(openssl_random_pseudo_bytes($length)); 
+      $token = encrypt(bin2hex(openssl_random_pseudo_bytes($length)), $private_secret_key); 
     if(email_exists($email)){
         
        if($stmt = mysqli_prepare($connection,"UPDATE users SET token='{$token}' WHERE email=?")) {
@@ -54,7 +54,7 @@ if(ifItIsMethod('post')){
           $mail->addAddress($email);
           $mail->Subject = 'Change password';
           $mail->Body = '<p>Please click to reset your password
-                    <a href="http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.encrypt($token, $private_secret_key).' ">http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.encrypt($token, $private_secret_key).'</a>
+                    <a href="http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.' ">http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.'</a>
                     </p>';
             
           $mail->send();

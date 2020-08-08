@@ -44,11 +44,11 @@ if(isset($_POST['edit_patient'])){
     $p_specialisation = protect($_POST['p_specialisation']);
     
     
-  $query= "UPDATE patients SET p_name='{$p_name}', p_age={$p_age}, p_gender='{$p_gender}', p_contact={$p_contact}, p_address='{$p_address}', p_email='{$email}', p_doc_name='{$p_doc_name}', p_specialisation='{$p_specialisation}' WHERE p_id={$the_id}";
+  $query= "UPDATE patients SET p_name='{$p_name}', p_age={$p_age}, p_gender='{$p_gender}', p_contact={$p_contact}, p_address='{$p_address}', p_email='{$p_email}', p_doc_name='{$p_doc_name}', p_specialisation='{$p_specialisation}' WHERE p_id={$the_id}";
     
     $edit_patient_query = mysqli_query($connection, $query);
     confirmQuery($edit_patient_query);
-   echo "Patient Upsated"." "."<a href='patients.php'>View Patients</a>";
+   echo "Patient Updated"." "."<a href='patients.php'>View Patients</a>";
 }
 ?>
 
@@ -74,6 +74,7 @@ if(isset($_POST['edit_patient'])){
 </div>    
  
 <div clsss="form-group">
+    <label for="p_gender">Gender</label>
    <select name="p_gender" id="">
    
         <option value="">Select Options</option>
@@ -87,7 +88,7 @@ if(isset($_POST['edit_patient'])){
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="tel" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' pattern="^+91\d{10}$">  
+   <input type="text" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' pattern="^+91[6-9][0-9]{9}$">  
 </div>
     
 <div clsss="form-group">
@@ -98,10 +99,25 @@ if(isset($_POST['edit_patient'])){
 <div clsss="form-group">
    <label for="p_email">Email</label> 
    <input type="email" class="form-control" name="p_email" value='<?php echo $p_email ?>' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">  
-</div> 
+</div>
+    <br>
 <div clsss="form-group">
    <label for="p_doc_name">Attendee Doctor</label> 
-   <input type="text" class="form-control" name="p_doc_name" value='<?php echo $p_doc_name ?>'> 
+   <select name="p_doc_name" id="">
+        <?php
+        $query = "SELECT * FROM users WHERE role ='Doctor'";
+        $select_query = mysqli_query($connection, $query);
+        while($row = mysqli_fetch_assoc($select_query)){
+            $the_id = protect($row['id']);
+            $name   = protect($row['name']);
+            $specialisation = protect($row['specialisation']);
+            
+            echo "<option value='$the_id'>$name</option>";
+        }
+            ?>
+            
+      
+    </select> 
 </div>
  <div clsss="form-group">
    <label for="p_specialisation">Specilisation</label> 

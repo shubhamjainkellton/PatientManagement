@@ -59,13 +59,11 @@
                     <li>
                         <a href="wards.php"><i class="fa fa-fw fa-list"></i> Manage Wards </a>
                     </li>
-                    <li>
-                        <a href="profile.php"><i class="fa fa-fw fa-users"></i> User Session Logs</a>
-                    </li>
+                
                      <div class="well">
                     <h5>Patient Search</h5>
                     
-                    <form action="#" method="post">
+                    <form action="search.php" method="post">
                     <div class="input-group">
                         <input name="search" type="text" class="form-control">
                         <span class="input-group-btn">

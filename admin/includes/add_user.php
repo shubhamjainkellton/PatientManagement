@@ -77,7 +77,66 @@ if(isset($_POST['submit'])){
 
 
 }
+
+require("../vendor/autoload.php");                        
+if(ifItIsMethod('post')){
+    
+    if(isset($_POST['email'])){
+      $email =  $_POST['email'];
+      $query = "SELECT * FROM users WHERE email='$email'";
+      $select_query = mysqli_query($connection, $query);
+      confirmQuery($select_query); 
+      while($row = mysqli_fetch_assoc($select_query)){
+                                
+     
+      $id        = protect($row['id']);
+      $email     = protect($row['email']);
+      $password  = protect($row['password']);  
+          
+    //Sending mail to patient    
+     $mail = new PHPMailer();
+           
+        try{  
+            
+          $mail->isSMTP();											 
+	      $mail->Host	    = 'smtp.gmail.com';					 
+	      $mail->SMTPAuth   = true;							 
+	      $mail->Username   = 'bhartisinghnew2825@gmail.com';				 
+	      $mail->Password   = 'Sbbss25281624';						 
+	      $mail->SMTPSecure = 'tls';							 
+	      $mail->Port	    = 587;
+          $mail->isHTML(true);      
+          $mail->CharSet    = 'UTF-8';   
+           
+          $mail->setFrom('bhartisinghnew2825@gmail.com', 'Bharti Singh');
+          $mail->addAddress($email);
+          $mail->Subject = 'PMS Registration';
+          $mail->Body = "<h4>You have been sucessfully registered by the admin<h4>
+          <table class='table table-bordered table-hover'>
+ <thead>
+     <tr><h4><b>Email:</b>&nbsp; $email </h4> </tr><br>
+     <tr><h4><b>Password:</b>&nbsp; $password</h4> </tr><br>
+</thead>
+ </table>
+ <p>Please change the password</p>";
+            
+          $mail->send();
+          
+          } 
+           catch(Exception $e){
+              
+              echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"; 
+          }   
+
+       }
+       
+    }    
+       
+
+}
+
 ?>
+
 
 
 
@@ -95,7 +154,7 @@ if(isset($_POST['submit'])){
     
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
-   <input type="tel" class="form-control" name="contact_no"  pattern="^+91\d{10}$">  
+   <input type="text" class="form-control" name="contact_no"  pattern="^+91[6-9][0-9]{9}$">  
 </div>
     
 <div clsss="form-group">
@@ -107,8 +166,9 @@ if(isset($_POST['submit'])){
    <label for="specialisation">Specialisation</label> 
    <input type="text" class="form-control" name="specialisation"> 
 </div>
-   
+<br>   
 <div clsss="form-group">
+    <label for="role">Role</label>
     <select name="role" id="">
         <option value="">Select Options</option>
         <option value="Admin">Admin</option>

@@ -157,6 +157,7 @@ if(ifItIsMethod('post')){
 </div>    
 <br>
 <div clsss="form-group">
+    <label for="p_gender">Gender</label>
    <select name="p_gender" id="">
    
         <option value="">Select Options</option>
@@ -170,7 +171,7 @@ if(ifItIsMethod('post')){
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="tel" class="form-control" name="p_contact" pattern="^+91\d{10}$">  
+   <input type="text" class="form-control" name="p_contact" pattern="^+91[6-9][0-9]{9}$">  
 </div>
     
 <div clsss="form-group">
@@ -182,17 +183,32 @@ if(ifItIsMethod('post')){
    <label for="p_email">Email</label> 
    <input type="email" class="form-control" name="p_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">  
 </div>
+    <br>
 <div clsss="form-group">
-   <label for="p_doc_name">Attendee Doctor</label> 
-   <input type="text" class="form-control" name="p_doc_name"> 
+   <label for="p_doc_name">Attendee Doctor</label>
+    <select name="p_doc_name" id="">
+        <?php
+        $query = "SELECT * FROM users WHERE role ='Doctor'";
+        $select_query = mysqli_query($connection, $query);
+        while($row = mysqli_fetch_assoc[$select_query]){
+            $the_id = protect($row['id']);
+            $name   = protect($row['name']);
+            $specialisation = protect($row['specialisation']);
+            echo "<option value='$the_id'>$name</option>";
+        }
+            ?>
+            
+      
+    </select>
 </div>
  <div clsss="form-group">
    <label for="p_specialisation">Specilisation</label> 
-   <input type="text" class="form-control" name="p_specilisation"> 
+   <input type="text" class="form-control" name="p_specilisation" value='<?php echo $specialisation ?>'> 
 </div>
  <br>
     
 <div clsss="form-group">
+    <label for="w_type">Ward Type</label> 
    <select name="w_type" id="">  
      
      
@@ -215,6 +231,7 @@ if(ifItIsMethod('post')){
     
 <br> 
  <div clsss="form-group">
+   <label for="bed_status">Bed Status</label>      
    <select name="bed_status" id="">  
      
      

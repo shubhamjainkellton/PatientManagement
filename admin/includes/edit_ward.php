@@ -46,6 +46,7 @@ if(isset($_POST['edit_ward'])){
 <form action =""  method="post" enctype="multipart/form-data">
     
 <div clsss="form-group">
+    <label for="w_type">Ward No.</label>
    <select name="w_type" id="">  
    <option value="<?php echo $w_type ?>"><?php echo $w_type ?></option>  
    <?php  
@@ -68,6 +69,7 @@ if(isset($_POST['edit_ward'])){
     
 <br> 
  <div clsss="form-group">
+    <label for="bed_status">Ward No.</label> 
    <select name="bed_status" id="">  
    <option value="<?php echo $bed_status ?>"><?php echo $bed_status ?></option>  
    <?php  

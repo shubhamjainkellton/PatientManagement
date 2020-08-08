@@ -73,9 +73,9 @@
                     </div>
                 </div>
             </div>
-            <a href="patients.php">
+            <a href="add_patients.php">
                 <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
+                    <span class="pull-left">Add Patient</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>

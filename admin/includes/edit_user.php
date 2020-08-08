@@ -61,7 +61,7 @@ if(isset($_POST['edit_user'])){
  </div>
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
-   <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no"  pattern="^+91(7\d|8\d|9\d)\d{9}$"> 
+   <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no"  pattern="^+91[6-9][0-9]{9}$"> 
  </div>
 <div clsss="form-group">
    <label for="address">Address</label> 
@@ -74,6 +74,7 @@ if(isset($_POST['edit_user'])){
  
 <br>
 <div clsss="form-group">
+    <label for="role">Role</label>
     <select name="role" id="">
     <option value="<?php echo $role ?>"><?php echo $role ?></option>
             
