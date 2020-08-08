@@ -1,0 +1,12 @@
+{
+    "name": "bharti/patient_management_system",
+    "require": {
+        "phpmailer/phpmailer": "^6.1"
+    },
+    "authors": [
+        {
+            "name": "Bharti Singh",
+            "email": "bhartisinghnew2825@gmail.com"
+        }
+    ]
+}
