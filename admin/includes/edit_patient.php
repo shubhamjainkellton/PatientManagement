@@ -87,7 +87,7 @@ if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL &
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="text" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' pattern="^+91[6-9][0-9]{9}$">  
+   <input type="text" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' >  
 </div>
     
 <div clsss="form-group">
@@ -97,7 +97,7 @@ if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL &
  
 <div clsss="form-group">
    <label for="p_email">Email</label> 
-   <input type="email" class="form-control" name="p_email" value='<?php echo $p_email ?>' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">  
+   <input type="email" class="form-control" name="p_email" value='<?php echo $p_email ?>' >  
 </div>
     <br>
 <div clsss="form-group">

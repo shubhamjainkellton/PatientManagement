@@ -142,7 +142,7 @@ if(ifItIsMethod('post')){
 
 <div clsss="form-group">
    <label for="p_aadhar">Aadhar Number</label> 
-   <input type="text" class="form-control" name="p_aadhar" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required> 
+   <input type="text" class="form-control" name="p_aadhar"  required> 
 </div>
     
 <div clsss="form-group">
@@ -170,7 +170,7 @@ if(ifItIsMethod('post')){
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="text" class="form-control" name="p_contact" pattern="^+91[6-9][0-9]{9}$">  
+   <input type="text" class="form-control" name="p_contact" >  
 </div>
     
 <div clsss="form-group">
@@ -180,7 +180,7 @@ if(ifItIsMethod('post')){
  
 <div clsss="form-group">
    <label for="p_email">Email</label> 
-   <input type="email" class="form-control" name="p_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">  
+   <input type="email" class="form-control" name="p_email" >  
 </div>
     <br>
 <div clsss="form-group">
