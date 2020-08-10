@@ -10,7 +10,7 @@ if(isset($_SESSION['email'])){
  
      $id              = protect($row['id']);
      $name            = protect($row['name']);
-     $aadhar_no       = protect($row['aadhar_no']);
+     
      $contact_no      = protect($row['contact_no']);
      $address         = protect($row['address']);
      $specialisation  = protect($row['specialisation']);
@@ -30,16 +30,19 @@ if(isset($_POST['edit_user'])){
     $email          = protect($_POST['email']);
     $password       = hashword(protect($_POST['password']));
     
-    
-    
    
+ if($name != NULL || preg_match("/^[a-zA-Z\s]+$/", $name) && $contact_no != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $contact_no) && $address != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email) && $password != NULL)    
+   {   
     
   $query= "UPDATE users SET name='{$name}', contact_no={$contact_no}, address='{$address}', specialisation='{$specialisation}', email='{$email}', password ='{$password}' WHERE email='{$_SESSION['email']}'";
     
     $edit_user_query = mysqli_query($connection, $query);
     confirmQuery($edit_user_query);
     
+
 }
+
+    }
 ?>
 <div id="wrapper">
 
@@ -62,17 +65,14 @@ if(isset($_POST['edit_user'])){
                  
 
 
-<form action ="./login.php"  method="post" enctype="multipart/form-data">
+<form action ="doctor_dashboard.php"  method="post" enctype="multipart/form-data">
     
 <div clsss="form-group">
    <label for="name">Name</label> 
    <input type="text" class="form-control" value='<?php echo $name ?>' name="name"> 
  </div>
 
-<div clsss="form-group">
-   <label for="aadhar_no">Aadhar No.</label> 
-   <input type="text" class="form-control" value='<?php echo $aadhar_no ?>' name="aadhar_no" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"> 
- </div>
+
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
    <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no"  pattern="^+91[6-9][0-9]{9}$"> 

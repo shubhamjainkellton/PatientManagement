@@ -11,7 +11,7 @@ if(isset($_GET['u_id'])){
  while($row = mysqli_fetch_assoc($select_users_query)){
      $id              = protect($row['id']);
      $name            = protect($row['name']);
-     $aadhar_no       = protect($row['aadhar_no']);
+     
      $contact_no      = protect($row['contact_no']);
      $address         = protect($row['address']);
      $specialisation  = protect($row['specialisation']);
@@ -30,7 +30,6 @@ if(isset($_GET['u_id'])){
 if(isset($_POST['edit_user'])){
  
     $name           = protect($_POST['name']);
-    $aadhar_no      = protect($_POST['aadhar_no']);
     $contact_no     = protect($_POST['contact_no']);
     $address        = protect($_POST['address']);
     $specialisation = protect($_POST['specialisation']);
@@ -38,12 +37,16 @@ if(isset($_POST['edit_user'])){
     $email          = protect($_POST['email']);
     $password       = hashword(protect($_POST['password']));
     
+if($name != NULL || preg_match("/^[a-zA-Z\s]+$/", $name) && $contact_no != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $contact_no) && $address != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email) && $password != NULL)    
+   { 
   $query= "UPDATE users SET name='{$name}', contact_no={$contact_no}, address='{$address}', specialisation='{$specialisation}', role='{$role}', email='{$email}', password ='{$password}' WHERE id={$the_user_id}";
     
     $edit_user_query = mysqli_query($connection, $query);
     confirmQuery($edit_user_query);
     echo "User updated"." "."<a href='users.php'>View User</a>";
 }
+    }
+
 ?>
 
 
@@ -55,10 +58,7 @@ if(isset($_POST['edit_user'])){
    <input type="text" class="form-control" value='<?php echo $name ?>' name="name"> 
  </div>
 
-<div clsss="form-group">
-   <label for="aadhar_no">Aadhar No.</label> 
-   <input type="text" class="form-control" value='<?php echo $aadhar_no ?>' name="aadhar_no" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"> 
- </div>
+
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
    <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no"  pattern="^+91[6-9][0-9]{9}$"> 

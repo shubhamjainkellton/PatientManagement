@@ -24,16 +24,32 @@ if(isset($_POST['submit'])){
     $password        = hashword(protect($_POST['password']));
     $doj             = date('d-m-y');
    
+    $duplicate = false;
+    try {
+    $query = "SELECT COUNT(*) as count FROM users WHERE aadhar_no = $aadhar_no";
+    $result = mysqli_query($connection, $query); 
+    $data = mysqli_fetch_assoc($result);
+    if ($data['count'] > 0) {
+       
+        echo "<div class='form'>
+                  <center>AADHAR ALREADY IN USE<br/>
+                  <p class='link'>Click here to <a href='registration.php'>Register</a> again</p></center>
+                  </div>";
+        $duplicate = true;
+    }
+} catch (Exception $e) {
+
+}
     
-    if($name == NULL){
+    if($name == NULL || !preg_match("/^[a-zA-Z\s]+$/", $name)){
         $msg = 'Please enter a name';
         $col = 'red';
     }else{
-        if($aadhar_no == NULL){
+        if($aadhar_no == NULL || !preg_match("/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/", $aadhar_no)){
             $msg = 'Please enter aadhar number';
             $col = 'red';
         }else{
-            if($contact_no == NULL){
+            if($contact_no == NULL || !preg_match("/^[98765]{1}[0-9]{9}$/", $contact_no)){
                 $msg = 'Please enter contact number';
                 $col = 'red';
             }else{
@@ -49,7 +65,7 @@ if(isset($_POST['submit'])){
                             $msg = 'Please enter user role';
                             $col = 'red';
                         }else{
-                            if($email == NULL){
+                            if($email == NULL || !preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email)){
                                 $msg = 'Please enter user email';
                                 $col = 'red';
                             }else{
@@ -65,10 +81,6 @@ if(isset($_POST['submit'])){
                                         $msg = 'User creates and entered into database';
                                         header("Location: login.php");
                                         $col = 'green';
-                                    }else{
-                                        $msg = 'Failed to create user in database<br>';
-                                        $msg .= mysqli_error($connection);
-                                        $col = 'red';
                                     }
                                     
                                 }
@@ -80,11 +92,6 @@ if(isset($_POST['submit'])){
             }
         }
     }
-
-    echo '<div id="msg" class="'.$col.'">';
-    echo $msg;
-    echo '</div>';
-
 
 
 }
@@ -156,22 +163,22 @@ if(ifItIsMethod('post')){
 
 <div clsss="form-group">
    <label for="aadhar_no">Aadhar Number</label> 
-   <input type="text" class="form-control" name="aadhar_no" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required> 
+   <input type="text" class="form-control" name="aadhar_no" required> 
 </div>
     
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
-   <input type="text" class="form-control" name="contact_no"  pattern="^+91[6-9][0-9]{9}$">  
+   <input type="text" class="form-control" name="contact_no"  required>  
 </div>
     
 <div clsss="form-group">
    <label for="address">Address</label> 
-   <input type="text" class="form-control" name="address"> 
+   <input type="text" class="form-control" name="address" required> 
 </div>
  
 <div clsss="form-group">
    <label for="specialisation">Specialisation</label> 
-   <input type="text" class="form-control" name="specialisation"> 
+   <input type="text" class="form-control" name="specialisation" required> 
 </div>
 <br>   
 <div clsss="form-group">
@@ -183,12 +190,12 @@ if(ifItIsMethod('post')){
 <br>
 <div clsss="form-group">
    <label for="email">Email</label> 
-   <input type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$">  
+   <input type="email" class="form-control" name="email" required>  
 </div>
 
 <div clsss="form-group">
    <label for="password">Password</label> 
-   <input type="password" class="form-control" name="password">  
+   <input type="password" class="form-control" name="password" required>  
 </div>
     
 <br> 
@@ -198,7 +205,9 @@ if(ifItIsMethod('post')){
    <input class="btn btn-primary" type="submit"  name="submit" value="Register User"> 
  </div>
 <br>                      
-                       
+<div class="form-group">
+<center><big><p style='text align:right'>Click here to <a href='login.php'>Login</a></p></big></center>    
+</div>                     
 </form>
                 </div>
             </div> <!-- /.col-xs-12 -->

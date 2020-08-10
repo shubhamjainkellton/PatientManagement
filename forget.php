@@ -58,9 +58,9 @@ if(ifItIsMethod('post')){
                     </p>';
             
           $mail->send();
-             echo "<div class='form-group'>
+             echo "<div class='form-group'><center>
                   <h3>You are send mail successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a></p>
+                  <p class='link'>Click here to <a href='login.php'>Login</a></p></center>
                   </div>";
           
           } 

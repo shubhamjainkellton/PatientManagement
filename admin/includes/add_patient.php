@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\SMTP;
  $ward_no = protect($_POST['ward_no']);
  $bed_no = protect($_POST['bed_no']);
  $bed_status = protect($_POST['bed_status']);
-     
+ 
  $query  = "INSERT INTO ward(w_type, ward_no, bed_no, bed_status)";                       
  $query .= "VALUES('{$w_type}', $ward_no, $bed_no, '{$bed_status}')";
  $ward_query = mysqli_query($connection, $query);
@@ -33,20 +33,39 @@ $result = mysqli_query($connection,$query);
 while($row= mysqli_fetch_array($result)){
     $ward_id    = protect($row['id']);
       
- 
+$duplicate = false;
+    try {
+    $query = "SELECT COUNT(*) as count FROM patients WHERE p_aadhar = $p_aadhar";
+    $result = mysqli_query($connection, $query); 
+    $data = mysqli_fetch_assoc($result);
+    if ($data['count'] > 0) {
+       
+        echo "<div class='form'>
+                  <center>AADHAR ALREADY IN USE<br/>
+                  <p class='link'>Click here to <a href='add_patient.php'>Add Patient </a>again</p></center>
+                  </div>";
+        $duplicate = true;
+    }
+} catch (Exception $e) {
+
+}
+    
+if($p_aadhar != NULL || preg_match("/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/", $p_aadhar) && $p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL && $p_gender != NULL && $p_contact != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $p_contact) && $p_address != NULL && $p_doc_name != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email))    
+   {    
 $query  = "INSERT INTO patients(p_aadhar, p_name, p_age, p_gender, p_contact, p_address, p_email, p_doc_name, p_specialisation, p_reg_date, p_w_id)";
    
 $query .="VALUES({$p_aadhar}, '{$p_name}', {$p_age}, '{$p_gender}', {$p_contact}, '{$p_address}', '{$p_email}', '{$p_doc_name}', '{$p_specialisation}', now(), $ward_id)";
     
 $create_user_query = mysqli_query($connection, $query);
     
-confirmQuery($create_user_query);
-    
 echo "Patient Created"." "."<a href='patients.php'>View Patients</a>";
     
 }
-
+else{
+    echo "<center> Access denied </center>";
 }
+}
+ }
 
 require("../vendor/autoload.php");                        
 if(ifItIsMethod('post')){

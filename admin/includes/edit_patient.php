@@ -12,7 +12,7 @@ if(isset($_GET['p_id'])){
  while($row = mysqli_fetch_assoc($select_patient_query)){
     $p_id            = protect($row['p_id']);
     $p_w_id          = protect($row['p_w_id']); 
-    $p_aadhar        = protect($row['p_aadhar']);
+   
     $p_name          = protect($row['p_name']);
     $p_age           = protect($row['p_age']);
     $p_gender        = protect($row['p_gender']);
@@ -33,7 +33,7 @@ if(isset($_GET['p_id'])){
 if(isset($_POST['edit_patient'])){
     
  
-    $p_aadhar        = protect($_POST['p_aadhar']);
+   
     $p_name          = protect($_POST['p_name']);
     $p_age           = protect($_POST['p_age']);
     $p_gender        = protect($_POST['p_gender']);
@@ -43,12 +43,16 @@ if(isset($_POST['edit_patient'])){
     $p_doc_name      = protect($_POST['p_doc_name']);
     $p_specialisation = protect($_POST['p_specialisation']);
     
-    
+      
+if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL && $p_gender != NULL && $p_contact != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $p_contact) && $p_address != NULL && $p_doc_name != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email))    
+   {     
   $query= "UPDATE patients SET p_name='{$p_name}', p_age={$p_age}, p_gender='{$p_gender}', p_contact={$p_contact}, p_address='{$p_address}', p_email='{$p_email}', p_doc_name='{$p_doc_name}', p_specialisation='{$p_specialisation}' WHERE p_id={$the_id}";
     
     $edit_patient_query = mysqli_query($connection, $query);
     confirmQuery($edit_patient_query);
    echo "Patient Updated"." "."<a href='patients.php'>View Patients</a>";
+ }
+  
 }
 ?>
 
@@ -57,11 +61,6 @@ if(isset($_POST['edit_patient'])){
 <form action =""  method="post" enctype="multipart/form-data">
 
 
-
-<div clsss="form-group">
-   <label for="p_aadhar">Aadhar Number</label> 
-   <input type="text" class="form-control" name="p_aadhar"  value='<?php echo $p_aadhar;  ?>' pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required> 
-</div>
     
 <div clsss="form-group">
    <label for="p_name">Full Name</label> 
