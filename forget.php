@@ -19,7 +19,8 @@ $private_secret_key = '1f4276388ad3214c873428dbef42243f' ;
 if(ifItIsMethod('post')){
     
     if(isset($_POST['email'])){
-      $email =  $_POST['email'];
+      $id  = protect($_POST['id']);    
+      $email =  (protect($_POST['email']);
       $length = 50;
       $token = encrypt(bin2hex(openssl_random_pseudo_bytes($length)), $private_secret_key); 
     if(email_exists($email)){
@@ -44,7 +45,7 @@ if(ifItIsMethod('post')){
 	      $mail->Host	    = 'smtp.gmail.com';					 
 	      $mail->SMTPAuth   = true;							 
 	      $mail->Username   = 'bhartisinghnew2825@gmail.com';				 
-	      $mail->Password   = 'Sbbss25281624';						 
+	      $mail->Password   = 'stunningbolts@28';						 
 	      $mail->SMTPSecure = 'tls';							 
 	      $mail->Port	    = 587;
           $mail->isHTML(true);      
@@ -54,7 +55,7 @@ if(ifItIsMethod('post')){
           $mail->addAddress($email);
           $mail->Subject = 'Change password';
           $mail->Body = '<p>Please click to reset your password
-                    <a href="http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.' ">http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.'</a>
+                    <a href="http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.'">http://localhost:/Php_files/patient_management_system/reset.php?email='.$email.'&token='.$token.'</a>
                     </p>';
             
           $mail->send();

@@ -10,7 +10,6 @@ if(isset($_SESSION['email'])){
  
      $id              = protect($row['id']);
      $name            = protect($row['name']);
-     
      $contact_no      = protect($row['contact_no']);
      $address         = protect($row['address']);
      $specialisation  = protect($row['specialisation']);
@@ -23,7 +22,6 @@ if(isset($_SESSION['email'])){
 if(isset($_POST['edit_user'])){
  
     $name           = protect($_POST['name']);
-    $aadhar_no      = protect($_POST['aadhar_no']);
     $contact_no     = protect($_POST['contact_no']);
     $address        = protect($_POST['address']);
     $specialisation = protect($_POST['specialisation']);
@@ -31,16 +29,13 @@ if(isset($_POST['edit_user'])){
     $password       = hashword(protect($_POST['password']));
     
    
- if($name != NULL || preg_match("/^[a-zA-Z\s]+$/", $name) && $contact_no != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $contact_no) && $address != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email) && $password != NULL)    
-   {   
-    
-  $query= "UPDATE users SET name='{$name}', contact_no={$contact_no}, address='{$address}', specialisation='{$specialisation}', email='{$email}', password ='{$password}' WHERE email='{$_SESSION['email']}'";
-    
+
+  $query= "UPDATE users SET name='{$name}', contact_no={$contact_no}, address='{$address}', specialisation='{$specialisation}', password ='{$password}' WHERE email='{$_SESSION['email']}'";
     $edit_user_query = mysqli_query($connection, $query);
     confirmQuery($edit_user_query);
     
 
-}
+
 
     }
 ?>
@@ -65,36 +60,36 @@ if(isset($_POST['edit_user'])){
                  
 
 
-<form action ="doctor_dashboard.php"  method="post" enctype="multipart/form-data">
+<form action =""  method="post" enctype="multipart/form-data">
     
 <div clsss="form-group">
    <label for="name">Name</label> 
-   <input type="text" class="form-control" value='<?php echo $name ?>' name="name"> 
+   <input type="text" class="form-control" value='<?php echo $name ?>' name="name" required> 
  </div>
 
 
 <div clsss="form-group">
    <label for="contact_no">Contact</label> 
-   <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no" > 
+   <input type="text" class="form-control" value='<?php echo $contact_no ?>' name="contact_no" pattern='^[98765]{1}[0-9]{9}$' required> 
  </div>
 <div clsss="form-group">
    <label for="address">Address</label> 
-   <input type="text" class="form-control" value='<?php echo $address ?>' name="address"> 
+   <input type="text" class="form-control" value='<?php echo $address ?>' name="address" required> 
  </div>
 <div clsss="form-group">
    <label for="specialisation">Specialisation</label> 
-   <input type="text" class="form-control" value='<?php echo $specialisation ?>' name="specialisation"> 
+   <input type="text" class="form-control" value='<?php echo $specialisation ?>' name="specialisation" required> 
  </div>    
 
 
 <div clsss="form-group">
    <label for="email">Email</label> 
-   <input type="email" class="form-control" value='<?php echo $email ?>' name="email" >  
+   <input type="email" class="form-control" value='<?php echo $email ?>' name="email" pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" required>  
  </div>
 
 <div clsss="form-group">
    <label for="password">Password</label> 
-   <input type="password" class="form-control" value='<?php echo $password ?>' name="password">  
+   <input type="password" class="form-control" value='<?php echo $password ?>' name="password" required>  
  </div>
 <br>    
 <br>

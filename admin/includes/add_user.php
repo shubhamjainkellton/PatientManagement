@@ -1,5 +1,9 @@
 
-<?php 
+<?php
+use PHPMailer\PHPMailer\PHPMailer; 
+use PHPMailer\PHPMailer\Exception; 
+use PHPMailer\PHPMailer\SMTP;
+
 $private_secret_key = '1f4276388ad3214c873428dbef42243f' ;
 if(isset($_POST['submit'])){
     $name            = protect($_POST['name']);
@@ -108,7 +112,7 @@ if(ifItIsMethod('post')){
 	      $mail->Host	    = 'smtp.gmail.com';					 
 	      $mail->SMTPAuth   = true;							 
 	      $mail->Username   = 'bhartisinghnew2825@gmail.com';				 
-	      $mail->Password   = 'Sbbss25281624';						 
+	      $mail->Password   = 'stunningbolts@28';						 
 	      $mail->SMTPSecure = 'tls';							 
 	      $mail->Port	    = 587;
           $mail->isHTML(true);      
@@ -118,13 +122,7 @@ if(ifItIsMethod('post')){
           $mail->addAddress($email);
           $mail->Subject = 'PMS Registration';
           $mail->Body = "<h4>You have been sucessfully registered by the admin<h4>
-          <table class='table table-bordered table-hover'>
- <thead>
-     <tr><h4><b>Email:</b>&nbsp; $email </h4> </tr><br>
-     <tr><h4><b>Password:</b>&nbsp; $password</h4> </tr><br>
-</thead>
- </table>
- <p>Please change the password</p>";
+ <p>Please contact to the admin</p>";
             
           $mail->send();
           

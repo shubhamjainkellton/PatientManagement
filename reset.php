@@ -15,8 +15,8 @@ $private_secret_key = '1f4276388ad3214c873428dbef42243f' ;
 
 if($stmt = mysqli_prepare($connection, 'SELECT name, email, token FROM users WHERE token=?')){
 
-
-    mysqli_stmt_bind_param($stmt, "s", decrypt($_GET['token']),$private_secret_key);
+   $token = decrypt($_GET['token'],$private_secret_key);
+    mysqli_stmt_bind_param($stmt, "s", $token);
 
     mysqli_stmt_execute($stmt);
 

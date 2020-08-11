@@ -50,8 +50,7 @@ $duplicate = false;
 
 }
     
-if($p_aadhar != NULL || preg_match("/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/", $p_aadhar) && $p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL && $p_gender != NULL && $p_contact != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $p_contact) && $p_address != NULL && $p_doc_name != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email))    
-   {    
+    
 $query  = "INSERT INTO patients(p_aadhar, p_name, p_age, p_gender, p_contact, p_address, p_email, p_doc_name, p_specialisation, p_reg_date, p_w_id)";
    
 $query .="VALUES({$p_aadhar}, '{$p_name}', {$p_age}, '{$p_gender}', {$p_contact}, '{$p_address}', '{$p_email}', '{$p_doc_name}', '{$p_specialisation}', now(), $ward_id)";
@@ -60,10 +59,6 @@ $create_user_query = mysqli_query($connection, $query);
     
 echo "Patient Created"." "."<a href='patients.php'>View Patients</a>";
     
-}
-else{
-    echo "<center> Access denied </center>";
-}
 }
  }
 
@@ -142,7 +137,7 @@ if(ifItIsMethod('post')){
 
 <div clsss="form-group">
    <label for="p_aadhar">Aadhar Number</label> 
-   <input type="text" class="form-control" name="p_aadhar"  required> 
+   <input type="text" class="form-control" name="p_aadhar" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required> 
 </div>
     
 <div clsss="form-group">
@@ -170,17 +165,17 @@ if(ifItIsMethod('post')){
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="text" class="form-control" name="p_contact" >  
+   <input type="text" class="form-control" name="p_contact" pattern="^[98765]{1}[0-9]{9}$"required>  
 </div>
     
 <div clsss="form-group">
    <label for="p_address">Address</label> 
-   <input type="text" class="form-control" name="p_address"> 
+   <input type="text" class="form-control" name="p_address" required> 
 </div>
  
 <div clsss="form-group">
    <label for="p_email">Email</label> 
-   <input type="email" class="form-control" name="p_email" >  
+   <input type="email" class="form-control" name="p_email" pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"required>  
 </div>
     <br>
 <div clsss="form-group">
@@ -205,7 +200,7 @@ if(ifItIsMethod('post')){
    
  <div clsss='form-group'>
    <label for='p_specialisation'>Specilisation</label> 
-   <input type='text' class='form-control' name='p_specilisation'> 
+   <input type='text' class='form-control' name='p_specilisation' required> 
 </div>
             
  <br>

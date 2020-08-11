@@ -44,14 +44,13 @@ if(isset($_POST['edit_patient'])){
     $p_specialisation = protect($_POST['p_specialisation']);
     
       
-if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL && $p_gender != NULL && $p_contact != NULL || preg_match("/^[98765]{1}[0-9]{9}$/", $p_contact) && $p_address != NULL && $p_doc_name != NULL && $specialisation != NULL && $email != NULL || preg_match("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/", $email))    
-   {     
+    
   $query= "UPDATE patients SET p_name='{$p_name}', p_age={$p_age}, p_gender='{$p_gender}', p_contact={$p_contact}, p_address='{$p_address}', p_email='{$p_email}', p_doc_name='{$p_doc_name}', p_specialisation='{$p_specialisation}' WHERE p_id={$the_id}";
     
     $edit_patient_query = mysqli_query($connection, $query);
     confirmQuery($edit_patient_query);
    echo "Patient Updated"." "."<a href='patients.php'>View Patients</a>";
- }
+ 
   
 }
 ?>
@@ -71,7 +70,7 @@ if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL &
    <label for="p_age">Age</label> 
    <input type="number" class="form-control" name="p_age" value='<?php echo $p_age;  ?>' required> 
 </div>    
- 
+ <br>
 <div clsss="form-group">
     <label for="p_gender">Gender</label>
    <select name="p_gender" id="">
@@ -87,17 +86,17 @@ if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL &
     
 <div clsss="form-group">
    <label for="p_contact">Contact</label> 
-   <input type="text" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' >  
+   <input type="text" class="form-control" name="p_contact"  value='<?php echo $p_contact ?>' pattern="^[98765]{1}[0-9]{9}$" required>  
 </div>
     
 <div clsss="form-group">
    <label for="p_address">Address</label> 
-   <input type="text" class="form-control" name="p_address" value='<?php echo $p_address ?>'> 
+   <input type="text" class="form-control" name="p_address" value='<?php echo $p_address ?>' required> 
 </div>
  
 <div clsss="form-group">
    <label for="p_email">Email</label> 
-   <input type="email" class="form-control" name="p_email" value='<?php echo $p_email ?>' >  
+   <input type="email" class="form-control" name="p_email" value='<?php echo $p_email ?>' pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" required>  
 </div>
     <br>
 <div clsss="form-group">
@@ -120,7 +119,7 @@ if($p_name != NULL || preg_match("/^[a-zA-Z\s]+$/", $p_name) && $p_age != NULL &
 </div>
  <div clsss="form-group">
    <label for="p_specialisation">Specilisation</label> 
-   <input type="text" class="form-control" name="p_specialisation" value='<?php echo $p_specialisation ?>'> 
+   <input type="text" class="form-control" name="p_specialisation" value='<?php echo $p_specialisation ?>' required> 
 </div>
 <br>
    
