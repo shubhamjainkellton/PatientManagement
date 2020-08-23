@@ -19,13 +19,15 @@ $private_secret_key = '1f4276388ad3214c873428dbef42243f' ;
 if(ifItIsMethod('post')){
     
     if(isset($_POST['email'])){
-      $id  = protect($_POST['id']);    
-      $email =  (protect($_POST['email']);
+      
+      $email =  (protect($_POST['email']));
       $length = 50;
       $token = encrypt(bin2hex(openssl_random_pseudo_bytes($length)), $private_secret_key); 
     if(email_exists($email)){
-        
-       if($stmt = mysqli_prepare($connection,"UPDATE users SET token='{$token}' WHERE email=?")) {
+        $query = "SELECT id FROM users WHERE email='$email'";
+        $row = mysqli_fetch_array(mysqli_query($connection,$query));
+        $id = protect($row['id']);
+       if($stmt = mysqli_prepare($connection,"UPDATE users SET token='{$token}' WHERE id=$id AND email=?")) {
             
         mysqli_stmt_bind_param($stmt,"s",$email);
         mysqli_stmt_execute($stmt);
@@ -45,7 +47,7 @@ if(ifItIsMethod('post')){
 	      $mail->Host	    = 'smtp.gmail.com';					 
 	      $mail->SMTPAuth   = true;							 
 	      $mail->Username   = 'bhartisinghnew2825@gmail.com';				 
-	      $mail->Password   = 'stunningbolts@28';						 
+	      $mail->Password   = 'sbolts@28';						 
 	      $mail->SMTPSecure = 'tls';							 
 	      $mail->Port	    = 587;
           $mail->isHTML(true);      

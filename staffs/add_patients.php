@@ -121,13 +121,13 @@ if(ifItIsMethod('post')){
 	      $mail->Host	    = 'smtp.gmail.com';					 
 	      $mail->SMTPAuth   = true;							 
 	      $mail->Username   = 'bhartisinghnew2825@gmail.com';				 
-	      $mail->Password   = 'stunningbolts@28';						 
+	      $mail->Password   = 'sbolts@28';						 
 	      $mail->SMTPSecure = 'tls';							 
 	      $mail->Port	    = 587;
           $mail->isHTML(true);      
           $mail->CharSet    = 'UTF-8';   
            
-          $mail->setFrom('bhartisinghnew2825@gmail.com', 'Bharti Singh');
+          $mail->setFrom('bhartisinghnew2825@gmail.com', 'PMS');
           $mail->addAddress($email);
           $mail->Subject = 'Patient Details';
           $mail->Body = "<table class='table table-bordered table-hover'>
